@@ -1,0 +1,7 @@
+# Ignore Visual Studio cache & temporary files
+.vs/
+*.user
+*.suo
+*.vscode/
+bin/
+obj/

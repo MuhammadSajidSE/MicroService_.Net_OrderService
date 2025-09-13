@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using OrderService.Common_Repository;
+using OrderService.DataBase_Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +11,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+
+builder.Services.AddDbContext<DatabaseContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+builder.Services.AddTransient(typeof(CommonRepoInterfac<,>), typeof(CommonRepoImplementation<,>));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
